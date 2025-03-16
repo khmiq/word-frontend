@@ -35,7 +35,7 @@ const App = () => {
     }
 
     try {
-      const response = await axios.post(`${API_URL}/words`, { text: trimmedWord });
+      const response = await axios.post(`${API_URL}/words`, { word: trimmedWord });
       setWords([...words, response.data]);
       toast.success("Word added successfully");
       setNewWord("");
