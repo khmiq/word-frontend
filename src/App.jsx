@@ -78,8 +78,8 @@ const App = () => {
       // Clear the editing state
       setEditingWord(null);
     } catch (error) {
+      console.error('Error during word update:', error.response || error); // Log the full error response
       toast.error("Failed to update word");
-      console.error(error); // Log the error for more details
     }
   };
   
