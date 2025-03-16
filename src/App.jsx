@@ -55,7 +55,7 @@ const App = () => {
     
 
     try {
-      await axios.put(`${API_URL}/words/${editingWord._id}`, { word: editingWord.text });
+      await axios.patch(`${API_URL}/words/${editingWord._id}`, { word: editingWord.text });
       setWords(words.map((word) => (word._id === editingWord._id ? { ...word, text: editingWord.text } : word)));
       toast.success("Word updated successfully");
       setEditingWord(null);
