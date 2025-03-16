@@ -64,17 +64,25 @@ const App = () => {
 
   const handleEditWord = async () => {
     if (!editingWord.text.trim()) return;
-    
-
+  
     try {
-      await axios.patch(`${API_URL}/words/${editingWord._id}`, { word: editingWord.text });
+      // Send the updated word with the correct field name (`text` instead of `word`)
+      await axios.patch(`${API_URL}/words/${editingWord._id}`, { text: editingWord.text });
+      
+      // Update the word in the state
       setWords(words.map((word) => (word._id === editingWord._id ? { ...word, text: editingWord.text } : word)));
+      
+      // Show success toast
       toast.success("Word updated successfully");
+      
+      // Clear the editing state
       setEditingWord(null);
     } catch (error) {
       toast.error("Failed to update word");
+      console.error(error); // Log the error for more details
     }
   };
+  
 
   const handleDeleteWord = async () => {
     try {
