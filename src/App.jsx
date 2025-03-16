@@ -18,37 +18,7 @@ const App = () => {
       .catch((err) => console.error("Error fetching words:", err));
   }, []);
 
-  // const handleAddWord = async () => {
-  //   const trimmedWord = newWord.trim();
-  //   if (!trimmedWord) return;
-
-  //   const existingWord = words.find((word) => word.text === trimmedWord);
-  //   if (existingWord) {
-  //     toast.error("This word already exists");
-
-  //     setTimeout(() => {
-  //       wordRefs.current[existingWord._id]?.scrollIntoView({ behavior: "smooth", block: "center" });
-  //       setHighlightedWordId(existingWord._id);
-  //       setTimeout(() => setHighlightedWordId(null), 1000);
-  //     }, 500);
-  //     return;
-  //   }
-
-  //   try {
-  //     const response = await axios.post(`${API_URL}/words`, { text: trimmedWord });
-  //     setWords([...words, response.data]);
-  //     toast.success("Word added successfully");
-  //     setNewWord("");
-
-  //     setTimeout(() => {
-  //       wordRefs.current[response.data._id]?.scrollIntoView({ behavior: "smooth", block: "center" });
-  //       setHighlightedWordId(response.data._id);
-  //       setTimeout(() => setHighlightedWordId(null), 1000);
-  //     }, 500);
-  //   } catch (error) {
-  //     toast.error("Failed to add word");
-  //   }
-  // };
+ 
 
   const handleAddWord = async () => {
     const trimmedWord = newWord.trim();
@@ -67,19 +37,19 @@ const App = () => {
     }
   
     try {
-      // Send the word to the backend
+     
       const response = await axios.post(`${API_URL}/words`, { text: trimmedWord });
   
-      // Update the words state by appending the newly added word
+      
       setWords((prevWords) => [...prevWords, response.data.word]);
   
-      // Show a success toast
+      
       toast.success("Word added successfully");
   
-      // Clear the input field
+      
       setNewWord("");
   
-      // Scroll to the newly added word and highlight it briefly
+      
       setTimeout(() => {
         wordRefs.current[response.data.word._id]?.scrollIntoView({ behavior: "smooth", block: "center" });
         setHighlightedWordId(response.data.word._id);
@@ -130,12 +100,12 @@ const App = () => {
             value={newWord}
             onChange={(e) => setNewWord(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleAddWord()}
-            className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-slate-900"
+            className="w-full px-3 py-2 border rounded-md focus:ring-2 focus:ring-slate-900 outline-none"
             placeholder="Enter a new word..."
           />
           <button
             onClick={handleAddWord}
-            className="bg-slate-900 text-white px-4 py-2 rounded-md hover:bg-navy-700 transition"
+            className="bg-slate-900 text-white px-4 py-2 rounded-md hover:bg-navy-700 transition outline-none"
           >
             Add
           </button>
