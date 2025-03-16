@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
+const API_URL = "https://word-backend-inky.vercel.app";
 
 const App = () => {
   const [words, setWords] = useState([]);
@@ -12,7 +13,7 @@ const App = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/words")
+      .get(`${API_URL}/words`)
       .then((res) => setWords(res.data))
       .catch((err) => console.error("Error fetching words:", err));
   }, []);
@@ -34,7 +35,7 @@ const App = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:5000/words", { text: trimmedWord });
+      const response = await axios.post(`${API_URL}/words`, { text: trimmedWord });
       setWords([...words, response.data]);
       toast.success("Word added successfully");
       setNewWord("");
@@ -54,7 +55,7 @@ const App = () => {
     
 
     try {
-      await axios.put(`http://localhost:5000/words/${editingWord._id}`, { word: editingWord.text });
+      await axios.put(`${API_URL}/words/${editingWord._id}`, { word: editingWord.text });
       setWords(words.map((word) => (word._id === editingWord._id ? { ...word, text: editingWord.text } : word)));
       toast.success("Word updated successfully");
       setEditingWord(null);
@@ -65,7 +66,7 @@ const App = () => {
 
   const handleDeleteWord = async () => {
     try {
-      await axios.delete(`http://localhost:5000/words/${deletingWord._id}`);
+      await axios.delete(`${API_URL}/words/${deletingWord._id}`);
       setWords(words.filter((word) => word._id !== deletingWord._id));
       toast.success("Word deleted successfully");
       setDeletingWord(null);
